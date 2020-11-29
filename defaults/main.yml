@@ -1,0 +1,8 @@
+---
+# defaults file for rdiff-backup-ansible/
+
+# update package(s) if they are already installed?
+rdiffbackup_update_install: false
+
+# install optional dependencies for ACLs and EAs installation?
+rdiffbackup_install_optional: true

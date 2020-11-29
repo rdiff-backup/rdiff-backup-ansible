@@ -1,0 +1,5 @@
+---
+# Call: ansible-playbook -i inventory test.yml --ask-become-pass
+- hosts: all
+  roles:
+    - rdiff_backup

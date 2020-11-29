@@ -1,0 +1,21 @@
+---
+# vars file for rdiff-backup-ansible/
+
+rdiffbackup_necessary_packages:
+  CentOS7:
+  - epel-release
+  - yum-plugins-copr
+  CentOS8:
+  - epel-release
+  - python3-dnf-plugins-core
+
+rdiffbackup_optional_packages:
+  CentOS7:
+  - py3libacl
+  - pyxattr
+  CentOS8:
+  - python3-pylibacl
+  - python3-pyxattr
+  Fedora:
+  - python3-pylibacl
+  - python3-pyxattr
