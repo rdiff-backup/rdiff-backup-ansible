@@ -31,7 +31,7 @@ galaxy_info:
   - name: Fedora
     versions:
     - all
-  - name: CentOS
+  - name: EL  # CentOS has been tested, not yet RHEL
     versions:
     - 7
     - 8

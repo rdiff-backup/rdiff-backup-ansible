@@ -38,4 +38,6 @@ MIT
 Author Information
 ------------------
 
-Go to https://rdiff-backup.net/ for any question or issue.
+Go to https://github.com/rdiff-backup/rdiff-backup-ansible to report issues
+or support the development of this role.
+Go to https://rdiff-backup.net/ for any other question.

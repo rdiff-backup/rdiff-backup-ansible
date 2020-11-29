@@ -1,0 +1,38 @@
+---
+# install rdiff-backup under RedHat
+
+- name: RedHat | install necessary pre-requisite packages
+  yum:
+    name: "{{ rdiffbackup_necessary_packages['EL' + ansible_distribution_major_version] }}"
+    state: "{{ __rdiffbackup_package_state }}"
+  become: true
+
+- name: RedHat | list already installed COPR repos
+  command: yum --assumeyes copr list
+  args:
+    warn: false  # to avoid warning to use yum or dnf module
+  changed_when: false  # just informative, never triggers a change
+  register: __rdiffbackup_copr_list
+
+- name: RedHat | enable Frank's COPR repo
+  command: yum --assumeyes copr enable frankcrawford/rdiff-backup
+  args:
+    warn: false  # to avoid warning to use yum or dnf module
+  become: true
+  when: "'frankcrawford/rdiff-backup' not in __rdiffbackup_copr_list.stdout"
+
+- name: RedHat | install rdiff-backup
+  yum:
+    name: rdiff-backup
+    state: "{{ __rdiffbackup_package_state }}"
+  become: true
+
+- name: RedHat | install optional dependencies if requested
+  yum:
+    name: "{{ rdiffbackup_optional_packages['EL' + ansible_distribution_major_version] }}"
+    # we need the powertools repo to install pyxattr
+    enablerepo: "{{ (ansible_distribution_major_version | int >= 8) | ternary('powertools', omit) }}"
+    update_cache: "{{ ansible_distribution_major_version | int >= 8 }}"
+    state: "{{ __rdiffbackup_package_state }}"
+  when: rdiffbackup_install_optional
+  become: true

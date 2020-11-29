@@ -4,11 +4,12 @@
 - name: Fedora | install rdiff-backup
   yum:
     name: rdiff-backup
-    state: "{{ rdiffbackup_package_state }}"
+    state: "{{ __rdiffbackup_package_state }}"
   become: true
 
 - name: Fedora | install optional dependencies if requested
   yum:
     name: "{{ rdiffbackup_optional_packages[ansible_distribution] }}"
+    state: "{{ __rdiffbackup_package_state }}"
   when: rdiffbackup_install_optional
   become: true

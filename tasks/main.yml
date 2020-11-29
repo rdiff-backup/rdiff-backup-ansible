@@ -3,11 +3,18 @@
 
 - name: set variable to define package installation approach
   set_fact:
-    rdiffbackup_package_state: "{{ rdiffbackup_update_install | ternary('latest', 'present') }}"
+    __rdiffbackup_package_state: "{{ rdiffbackup_update_install | ternary('latest', 'present') }}"
 
 - name: gather facts if not yet done
   setup:
   when: ansible_distribution is not defined
 
 - name: include correct installation tasks file
-  include_tasks: "install_{{ ansible_distribution }}.yml"
+  include_tasks: "{{ lookup('first_found', __rdiffbackup_install_tasks) }}"
+  vars:
+    __rdiffbackup_install_tasks:
+      files:
+      - "{{ ansible_distribution }}.yml"
+      - "{{ ansible_os_family }}.yml"
+      paths:
+      - "{{ role_path }}/tasks/install"
