@@ -1,5 +1,5 @@
 ---
-# vars file for rdiff-backup-ansible/
+# vars file for rdiff_backup_install
 
 rdiffbackup_necessary_packages:
   EL7:

@@ -1,5 +1,5 @@
 ---
-# tasks file for rdiff-backup-ansible/
+# tasks file for rdiff_backup_install
 
 - name: set variable to define package installation approach
   set_fact:

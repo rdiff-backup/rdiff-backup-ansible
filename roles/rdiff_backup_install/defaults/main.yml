@@ -1,5 +1,5 @@
 ---
-# defaults file for rdiff-backup-ansible/
+# defaults file for rdiff_backup_install
 
 # update package(s) if they are already installed?
 rdiffbackup_update_install: false
