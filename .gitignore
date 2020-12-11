@@ -1,0 +1,9 @@
+# built collections
+*.tar.gz
+
+# temporary files
+*~
+.*.swp
+
+# local files, my own files, not for Git
+*[._]myown[._]*
