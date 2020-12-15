@@ -1,0 +1,21 @@
+---
+# install rdiff-backup under Debian >= 11 (bullseye)
+
+- name: Debian | need to make sure version 3 of python is being used
+  set_fact:
+    ansible_python_interpreter: /usr/bin/python3
+  # else apt module fails https://github.com/ansible/ansible/issues/69053
+
+- name: Debian | install rdiff-backup
+  apt:
+    name: rdiff-backup
+    state: "{{ __rdiffbackup_package_state }}"
+    update_cache: true
+  become: true
+
+- name: Debian | install optional dependencies if requested
+  apt:
+    name: "{{ rdiffbackup_optional_packages[ansible_distribution] }}"
+    state: "{{ __rdiffbackup_package_state }}"
+  when: rdiffbackup_install_optional
+  become: true

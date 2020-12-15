@@ -19,3 +19,6 @@ rdiffbackup_optional_packages:
   Fedora:
   - python3-pylibacl
   - python3-pyxattr
+  Debian:
+  - python3-pylibacl
+  - python3-pyxattr

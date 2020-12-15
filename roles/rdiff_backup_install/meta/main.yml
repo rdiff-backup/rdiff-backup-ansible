@@ -35,6 +35,9 @@ galaxy_info:
     versions:
     - 7
     - 8
+  - name: Debian
+    versions:
+    - 11
 
   galaxy_tags: [backup, linux, system]
     # List tags for your role here, one per line. A tag is a keyword that describes
