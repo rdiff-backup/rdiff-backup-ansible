@@ -1,5 +1,5 @@
 ---
-# install rdiff-backup under Debian >= 11 (bullseye)
+# install rdiff-backup under Debian >= 11 (bullseye) and Ubuntu >= 20
 
 - name: Debian | need to make sure version 3 of python is being used
   set_fact:
@@ -15,7 +15,7 @@
 
 - name: Debian | install optional dependencies if requested
   apt:
-    name: "{{ rdiffbackup_optional_packages[ansible_distribution] }}"
+    name: "{{ rdiffbackup_optional_packages[ansible_os_family] }}"
     state: "{{ __rdiffbackup_package_state }}"
   when: rdiffbackup_install_optional
   become: true

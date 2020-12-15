@@ -38,6 +38,10 @@ galaxy_info:
   - name: Debian
     versions:
     - 11
+  - name: Ubuntu
+    versions:
+    - 20.04
+    - 20.10
 
   galaxy_tags: [backup, linux, system]
     # List tags for your role here, one per line. A tag is a keyword that describes

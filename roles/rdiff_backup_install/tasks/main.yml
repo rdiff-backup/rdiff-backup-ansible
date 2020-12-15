@@ -14,7 +14,7 @@
   vars:
     __rdiffbackup_install_tasks:
       files:
-      - "{{ ansible_distribution }}.yml"
-      - "{{ ansible_os_family }}.yml"
+      - "dist_{{ ansible_distribution }}.yml"
+      - "fam_{{ ansible_os_family }}.yml"
       paths:
       - "{{ role_path }}/tasks/install"
