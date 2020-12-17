@@ -30,18 +30,25 @@ galaxy_info:
   platforms:
   - name: Fedora
     versions:
-    - all
+    - 31
+    - 32
+    - 33
   - name: EL  # CentOS has been tested, not yet RHEL
     versions:
     - 7
     - 8
   - name: Debian
     versions:
-    - 11
+    - bullseye  # 11
+    - sid  # unstable
   - name: Ubuntu
     versions:
-    - 20.04
-    - 20.10
+    - focal  # 20.04
+    - groovy  # 20.10
+    - hirsute  # 21.04
+  - name: Windows
+    - 2019
+    - 10
 
   galaxy_tags: [backup, linux, system]
     # List tags for your role here, one per line. A tag is a keyword that describes

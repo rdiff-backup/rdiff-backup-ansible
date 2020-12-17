@@ -1,0 +1,58 @@
+---
+# installation of rdiff-backup for Windows 10
+
+- name: Windows | gather information about release on GitHub
+  uri:
+    url: https://api.github.com/repos/rdiff-backup/rdiff-backup/releases/{{ rdiffbackup_release_version }}
+    return_content: yes
+  register: __rdiffbackup_release_res
+  delegate_to: localhost
+
+#- name: Windows | define JSON query to extract download URL
+#  set_fact:
+
+- name: Windows | extract URL to download win32exe.zip
+  set_fact:
+    __rdiffbackup_download_url: "{{ __rdiffbackup_release_res.content | from_json | json_query(__rdiffbackup_jq) }}"
+  vars:
+    __rdiffbackup_jq: "assets[?contains(name, 'win32exe.zip')].browser_download_url|[0]"
+
+- name: Windows | extract name of downloaded win32exe.zip
+  set_fact:
+    __rdiffbackup_dir_name: "{{ __rdiffbackup_release_res.content | from_json | json_query(__rdiffbackup_jq) | regex_replace('\\.win32exe\\.zip', '') }}"
+  vars:
+    __rdiffbackup_jq: "assets[?contains(name, 'win32exe.zip')].name|[0]"
+
+- name: Windows | download win32exe.zip
+  win_get_url:
+    url: "{{ __rdiffbackup_download_url }}"
+    dest: "C:/TEMP"
+  register: __rdiffbackup_url_res  # .dest contains the downloaded filename
+
+- name: Windows | remove the installation directory
+  win_file:
+    path: "{{ rdiffbackup_win_install_dir }}"
+    state: absent
+
+- name: Windows | unpack win32exe.zip
+  win_unzip:
+    src: "{{ __rdiffbackup_url_res.dest }}"
+    dest: "{{ rdiffbackup_win_install_dir | win_dirname }}"
+
+- name: Windows | copy installation directory to final destination
+  win_copy:
+    src: "{{ rdiffbackup_win_install_dir | win_dirname }}\\{{ __rdiffbackup_dir_name }}\\"
+    dest: "{{ rdiffbackup_win_install_dir }}"
+    remote_src: true
+
+- name: Windows | remove the unpacked directory
+  win_file:
+    path: "{{ rdiffbackup_win_install_dir | win_dirname }}\\{{ __rdiffbackup_dir_name }}"
+    state: absent
+
+- name: Windows | add rdiff-backup to PATH if requested
+  win_path:
+    name: PATH
+    elements: "{{ rdiffbackup_win_install_dir }}"
+    scope: machine
+    state: present

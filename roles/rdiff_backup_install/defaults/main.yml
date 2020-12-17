@@ -6,3 +6,10 @@ rdiffbackup_update_install: false
 
 # install optional dependencies for ACLs and EAs installation?
 rdiffbackup_install_optional: true
+
+# version of rdiff-backup, currently only used for Windows
+rdiffbackup_release_version: latest  # or the ID of the release (not the version!)
+
+# where to install rdiff-backup under Windows
+# BEWARE that this directory will be removed during the installation
+rdiffbackup_win_install_dir: C:\Program Files (x86)\rdiff-backup
