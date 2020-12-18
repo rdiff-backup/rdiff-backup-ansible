@@ -35,5 +35,6 @@ ansible-playbook -i myhost, install-rdiff-backup.yml [-k] [-K]
 
 ## CHANGELOG
 
+* v1.1.1 / 2020-12-18 - fix typo in role metadata
 * v1.1.0 / 2020-12-17 - add support for Debian, Ubuntu and Windows.
 * v1.0.0 / 2020-12-11 - initial release with CentOS/RHEL and Fedora support.
