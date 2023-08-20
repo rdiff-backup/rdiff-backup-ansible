@@ -1,0 +1,8 @@
+---
+# defaults file for rdiff_backup_develop
+# where to create the development environment for rdiff-backup
+rdb_develop_base_dir: "~/Workspace"
+
+# where to install the virtualenv for developing relatively to the Git repo
+# (an absolute path works as well)
+rdb_develop_venv: "dist/rdb"

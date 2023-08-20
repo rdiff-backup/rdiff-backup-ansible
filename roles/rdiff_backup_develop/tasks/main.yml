@@ -1,0 +1,58 @@
+---
+# tasks file for rdiff_backup_develop
+- name: create base directory
+  ansible.builtin.file:
+    state: directory
+    path: "{{ rdb_develop_base_dir }}"
+
+- name: clone rdiff-backup repositories
+  ansible.builtin.git:
+    dest: "{{ rdb_develop_base_dir }}/{{ item | ansible.builtin.urlsplit('path') | basename | replace('.git', '') }}"
+    repo: "{{ item }}"
+  loop: "{{ rdb_develop_git_repos }}"
+
+- name: make sure any tilde or environment variable is expanded
+  ansible.builtin.set_fact:
+    __rdb_develop_base_dir: "{{ rdb_develop_base_dir | expanduser | expandvars }}"
+
+- name: unarchive the rdiff-backup test files as root
+  ansible.builtin.unarchive:
+    creates: "{{ __rdb_develop_base_dir }}/{{ rdb_develop_testfiles_dir }}"
+    dest: "{{ __rdb_develop_base_dir }}"
+    src: "{{ __rdb_develop_base_dir }}/{{ rdb_develop_testfiles_archive }}"
+    remote_src: true
+  become: true
+
+- name: fix test files access rights using the provided script as root
+  ansible.builtin.shell:
+    cmd: "{{ __rdb_develop_base_dir }}/{{ rdb_develop_testfiles_script }}"
+    chdir: "{{ __rdb_develop_base_dir }}"
+  become: true
+
+- name: install virtualenv via package
+  ansible.builtin.package:
+    name: python3-virtualenv
+  become: true
+
+- name: create a virtualenv with bindep
+  ansible.builtin.pip:
+    name: bindep
+    chdir: "{{ __rdb_develop_base_dir }}/rdiff-backup"
+    virtualenv: "{{ rdb_develop_venv }}"
+
+- name: call bindep to get a list of necessary packages
+  ansible.builtin.command:
+    cmd: "{{ rdb_develop_venv }}/bin/bindep -l newline devel"
+    chdir: "{{ __rdb_develop_base_dir }}/rdiff-backup"
+  register: __rdb_develop_bindep
+
+- name: install gathered list of packages
+  ansible.builtin.package:
+    name: "{{ __rdb_develop_bindep.stdout_lines }}"
+  become: true
+ 
+- name: extend the virtualenv with the rdiff-backup requirements
+  ansible.builtin.pip:
+    requirements: requirements.txt
+    chdir: "{{ __rdb_develop_base_dir }}/rdiff-backup"
+    virtualenv: dist/rdb

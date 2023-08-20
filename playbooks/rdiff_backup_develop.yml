@@ -1,0 +1,11 @@
+---
+# call for example with:
+# ansible-playbook -i localhost, -c local \
+#   rdiffbackup.rdiff_backup.rdiff_backup_develop -K
+# (sudo rights are required to install packages)
+- name: Prepare a workstation for rdiff-backup development
+  hosts: all
+  gather_facts: false
+
+  roles:
+    - rdiff_backup_develop

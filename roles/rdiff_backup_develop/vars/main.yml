@@ -1,0 +1,10 @@
+---
+# vars file for rdiff_backup_develop
+rdb_develop_git_repos:
+  - git@github.com:rdiff-backup/rdiff-backup.git
+  - git@github.com:rdiff-backup/rdiff-backup-filesrepo.git
+  # - git@github.com:rdiff-backup/rdiff-backup-ansible.git  # fails if working
+rdb_develop_testfiles_dir: "rdiff-backup_testfiles"
+rdb_develop_testfiles: "rdiff-backup-filesrepo/{{ rdb_develop_testfiles_dir }}"
+rdb_develop_testfiles_archive: "{{ rdb_develop_testfiles }}.tar"
+rdb_develop_testfiles_script: "{{ rdb_develop_testfiles }}.fix.sh"

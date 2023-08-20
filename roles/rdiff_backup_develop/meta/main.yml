@@ -1,0 +1,18 @@
+galaxy_info:
+  author: Eric Lavarde
+  description: install rdiff-backup's development environment
+  company: private
+
+  license: license GPL-2.0-or-later
+
+  min_ansible_version: 2.14
+
+  # https://galaxy.ansible.com/api/v1/platforms/
+  platforms:
+    - name: Fedora
+      versions:
+        - all
+
+  galaxy_tags: [rdiffbackup, development]
+
+dependencies: []
