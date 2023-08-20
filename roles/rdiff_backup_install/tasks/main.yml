@@ -2,19 +2,20 @@
 # tasks file for rdiff_backup_install
 
 - name: set variable to define package installation approach
-  set_fact:
+  ansible.builtin.set_fact:
     __rdiffbackup_package_state: "{{ rdiffbackup_update_install | ternary('latest', 'present') }}"
 
 - name: gather facts if not yet done
-  setup:
+  ansible.builtin.setup:
   when: ansible_distribution is not defined
 
 - name: include correct installation tasks file
-  include_tasks: "{{ lookup('first_found', __rdiffbackup_install_tasks) }}"
+  ansible.builtin.include_tasks:
+    file: "{{ lookup('first_found', __rdiffbackup_install_tasks) }}"
   vars:
     __rdiffbackup_install_tasks:
       files:
-      - "dist_{{ ansible_distribution }}.yml"
-      - "fam_{{ ansible_os_family }}.yml"
+        - "dist_{{ ansible_distribution }}.yml"
+        - "fam_{{ ansible_os_family }}.yml"
       paths:
-      - "{{ role_path }}/tasks/install"
+        - "{{ role_path }}/tasks/install"

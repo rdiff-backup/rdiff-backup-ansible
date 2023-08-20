@@ -4,6 +4,7 @@
   ansible.builtin.file:
     state: directory
     path: "{{ rdb_develop_base_dir }}"
+    mode: "0750"
 
 - name: clone rdiff-backup repositories
   ansible.builtin.git:
@@ -50,7 +51,7 @@
   ansible.builtin.package:
     name: "{{ __rdb_develop_bindep.stdout_lines }}"
   become: true
- 
+
 - name: extend the virtualenv with the rdiff-backup requirements
   ansible.builtin.pip:
     requirements: requirements.txt

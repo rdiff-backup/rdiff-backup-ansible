@@ -2,13 +2,13 @@
 # install rdiff-backup under Fedora
 
 - name: Fedora | install rdiff-backup
-  yum:
+  ansible.builtin.dnf:
     name: rdiff-backup
     state: "{{ __rdiffbackup_package_state }}"
   become: true
 
 - name: Fedora | install optional dependencies if requested
-  yum:
+  ansible.builtin.dnf:
     name: "{{ rdiffbackup_optional_packages[ansible_distribution] }}"
     state: "{{ __rdiffbackup_package_state }}"
   when: rdiffbackup_install_optional

@@ -4,12 +4,9 @@
 - name: Windows | gather information about release on GitHub
   uri:
     url: https://api.github.com/repos/rdiff-backup/rdiff-backup/releases/{{ rdiffbackup_release_version }}
-    return_content: yes
+    return_content: true
   register: __rdiffbackup_release_res
   delegate_to: localhost
-
-#- name: Windows | define JSON query to extract download URL
-#  set_fact:
 
 - name: Windows | extract URL to download win32exe.zip
   set_fact:

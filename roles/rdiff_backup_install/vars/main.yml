@@ -3,22 +3,22 @@
 
 rdiffbackup_necessary_packages:
   EL7:
-  - epel-release
-  - yum-plugins-copr
+    - epel-release
+    - yum-plugins-copr
   EL8:
-  - epel-release
-  - python3-dnf-plugins-core
+    - epel-release
+    - python3-dnf-plugins-core
 
 rdiffbackup_optional_packages:
   EL7:
-  - py3libacl
-  - pyxattr
+    - py3libacl
+    - pyxattr
   EL8:
-  - python3-pylibacl
-  - python3-pyxattr
+    - python3-pylibacl
+    - python3-pyxattr
   Fedora:
-  - python3-pylibacl
-  - python3-pyxattr
+    - python3-pylibacl
+    - python3-pyxattr
   Debian:
-  - python3-pylibacl
-  - python3-pyxattr
+    - python3-pylibacl
+    - python3-pyxattr

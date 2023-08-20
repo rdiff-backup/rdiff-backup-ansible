@@ -16,7 +16,7 @@ galaxy_info:
   # - CC-BY-4.0
   license: MIT
 
-  min_ansible_version: 2.9
+  min_ansible_version: "2.9"
 
   # If this a Container Enabled role, provide the minimum Ansible Container version.
   # min_ansible_container_version:
@@ -28,28 +28,25 @@ galaxy_info:
   # https://galaxy.ansible.com/api/v1/platforms/
   #
   platforms:
-  - name: Fedora
-    versions:
-    - 31
-    - 32
-    - 33
-  - name: EL  # CentOS has been tested, not yet RHEL
-    versions:
-    - 7
-    - 8
-  - name: Debian
-    versions:
-    - bullseye  # 11
-    - sid  # unstable
-  - name: Ubuntu
-    versions:
-    - focal  # 20.04
-    - groovy  # 20.10
-    - hirsute  # 21.04
-  - name: Windows
-    versions:
-    - 2019
-    - 10
+    - name: Fedora
+      versions:
+        - all
+    - name: EL  # CentOS has been tested, not yet RHEL
+      versions:
+        - "7"
+        - "8"
+    - name: Debian
+      versions:
+        - bullseye  # 11
+        - sid  # unstable
+    - name: Ubuntu
+      versions:
+        - focal  # 20.04
+        - groovy  # 20.10
+        - hirsute  # 21.04
+    - name: Windows
+      versions:
+        - "2019"  # and Windows 10 as well
 
   galaxy_tags: [backup, linux, system]
     # List tags for your role here, one per line. A tag is a keyword that describes
