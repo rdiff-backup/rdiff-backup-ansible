@@ -1,5 +1,15 @@
 ---
 # tasks file for rdiff_backup_develop
+- name: gather information about the OS if necessary
+  setup:
+    gather_subset: os_family
+  when: ansible_os_family is not defined
+
+- name: install necessary software packages
+  ansible.builtin.package:
+    name: "{{ rdb_develop_packages[ansible_os_family] | default(rdb_develop_default_packages) }}"
+  become: true
+
 - name: create base directory
   ansible.builtin.file:
     state: directory
@@ -29,11 +39,8 @@
     cmd: "{{ __rdb_develop_base_dir }}/{{ rdb_develop_testfiles_script }}"
     chdir: "{{ __rdb_develop_base_dir }}"
   become: true
-
-- name: install virtualenv via package
-  ansible.builtin.package:
-    name: python3-virtualenv
-  become: true
+  changed_when: "'changed ownership' in __rdb_develop_change.stdout"
+  register: __rdb_develop_change
 
 - name: create a virtualenv with bindep
   ansible.builtin.pip:
@@ -45,6 +52,7 @@
   ansible.builtin.command:
     cmd: "{{ rdb_develop_venv }}/bin/bindep -l newline devel"
     chdir: "{{ __rdb_develop_base_dir }}/rdiff-backup"
+  changed_when: false  # only gathering information
   register: __rdb_develop_bindep
 
 - name: install gathered list of packages
@@ -56,4 +64,4 @@
   ansible.builtin.pip:
     requirements: requirements.txt
     chdir: "{{ __rdb_develop_base_dir }}/rdiff-backup"
-    virtualenv: dist/rdb
+    virtualenv: "{{ rdb_develop_venv }}"

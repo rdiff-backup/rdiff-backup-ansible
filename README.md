@@ -42,10 +42,11 @@ A simple role and playbook do exist to install all dependencies necessary to dev
     ansible-playbook -i localhost, -c local \
       rdiffbackup.rdiff_backup.rdiff_backup_develop -K
 
-This playbook is only developed and tested for Fedora, but you are welcome to offer your help for other platforms.
+This playbook is only developed and tested for Fedora, and a bit for Manjaro (and hence ArchLinux), but you are welcome to offer your help for other platforms.
 
 ## CHANGELOG
 
+* v1.3.0 / 2023-10-20 - `rdiff_backup_develop` supports ArchLinux/Manjaro, fix license & Co
 * v1.2.0 / 2023-08-20 - add `rdiff_backup_develop` role and playbook
 * v1.1.1 / 2020-12-18 - fix typo in role metadata
 * v1.1.0 / 2020-12-17 - add support for Debian, Ubuntu and Windows.

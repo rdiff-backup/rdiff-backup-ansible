@@ -6,7 +6,10 @@ Install in one simple step the full development environment for rdiff-backup
 Requirements
 ------------
 
-n/a
+You'll need to make sure that your (GitHub) SSH key is loaded with ssh-agent/ssh-add prior to calling this role so that you can clone the Git repos.
+
+The role is mostly idempotent.
+It doesn't clone already cloned Git repos, but it fails if there are uncommitted changes.
 
 Role Variables
 --------------
@@ -22,7 +25,7 @@ Role Variables
 Dependencies
 ------------
 
-n/a
+You will need the collection 'community.general' for its module 'pacman' if you want to use this collection under ArchLinux and derivatives (e.g. Manjaro).
 
 Example Playbook
 ----------------
@@ -44,7 +47,7 @@ Call for example with:
 License
 -------
 
-GPLv2 or later
+MIT
 
 Author Information
 ------------------

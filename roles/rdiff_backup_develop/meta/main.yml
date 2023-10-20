@@ -3,13 +3,16 @@ galaxy_info:
   description: install rdiff-backup's development environment
   company: private
 
-  license: license GPL-2.0-or-later
+  license: MIT
 
   min_ansible_version: "2.14"
 
   # https://galaxy.ansible.com/api/v1/platforms/
   platforms:
     - name: Fedora
+      versions:
+        - all
+    - name: Manjaro
       versions:
         - all
 
